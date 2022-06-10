@@ -1,5 +1,5 @@
 
-FROM rinchen.cnb.csic.es/eosc-synergy/scipion-worker:master
+FROM rinchen.cnb.csic.es/eosc-synergy/scipion-worker:devel
 
 ARG TURBOVNC_VERSION=2.2.4
 ARG LIBJPEG_VERSION=1.5.2
@@ -17,6 +17,11 @@ ARG NOGPU
 
 USER root
 #######################
+
+# Update nvidia repo keys
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
+
+RUN apt-get update && apt-get upgrade -y
 
 # Install necessary packages - xfce4, term, editor
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
